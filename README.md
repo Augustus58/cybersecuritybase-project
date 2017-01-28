@@ -16,10 +16,10 @@
 11. There should be "External Redirect" alerts
 12. Look for the related POST message (Request)
 13. Identify the redirect parameter with replaced address
-14. Copy the url of the GET (e.g.http://localhost:8080/formSave?name=test&address=test&redirect=http%3A%2F%2F4728989909065774721.owasp.org) and replace the redirect address with e.g. http://https://www.owasp.org/index.php/Top_10_2013-A10-Unvalidated_Redirects_and_Forwards
+14. Copy the url of the GET (e.g.http://localhost:8080/formSave?name=test&address=test&redirect=http%3A%2F%2F4728989909065774721.owasp.org) and replace the redirect address with e.g. https://www.owasp.org/index.php/Top_10_2013-A10-Unvalidated_Redirects_and_Forwards
 15. Copy the modified address to your browser and test it out.
 
 ## How the flaw can be fixed?
-Do not use redirect-parameters on the first hand. And if it's really needed to use redirect-parameters, then the parameters should be whitelisted. Whitelisted so that in each redirect only exlusively allowed addresses are allowed.
+Do not use redirect-parameters on the first hand. And if it's really needed to use redirect-parameters, then the parameters should be whitelisted. Whitelisted so that in each redirect only explicitly allowed addresses are allowed.
 
 In code level redirect parameter should be removed from form-view. Also in signupcontrollers submitForm-method redirect parameter is not needed and should be removed. Or whitelisted.

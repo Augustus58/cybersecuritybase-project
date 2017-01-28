@@ -11,23 +11,28 @@ import sec.project.repository.SignupRepository;
 @Controller
 public class SignupController {
 
-    @Autowired
-    private SignupRepository signupRepository;
+  @Autowired
+  private SignupRepository signupRepository;
 
-    @RequestMapping("*")
-    public String defaultMapping() {
-        return "redirect:/form";
-    }
+  @RequestMapping("*")
+  public String defaultMapping() {
+    return "redirect:/form";
+  }
 
-    @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String loadForm() {
-        return "form";
-    }
+  @RequestMapping("/done")
+  public String done() {
+    return "done";
+  }
+  
+  @RequestMapping(value = "/form", method = RequestMethod.GET)
+  public String loadForm() {
+    return "form";
+  }
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String submitForm(@RequestParam String name, @RequestParam String address) {
-        signupRepository.save(new Signup(name, address));
-        return "done";
-    }
+  @RequestMapping(value = "/formSave", method = RequestMethod.GET)
+  public String submitForm(@RequestParam String name, @RequestParam String address, @RequestParam String redirect) {
+    signupRepository.save(new Signup(name, address));
+    return (redirect != null && !redirect.isEmpty() ? "redirect:" + redirect : "form");
+  }
 
 }

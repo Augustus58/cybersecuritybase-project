@@ -116,3 +116,17 @@ In Spring one should use method `addFlashAttribute` instead of `addAttribute` in
 If `addFlashAttribute` were used in the submitForm method, then method done method should be also modified to use flash attributes.
 
 One possible solution could be to store the id in a session to be used in done method.
+
+# A1-Injection
+
+## How the flaw can be identified?
+The flaw can be found by reading carefully [https://www.owasp.org/index.php/Testing_for_SQL_Injection_(OTG-INPVAL-005)#Standard_SQL_Injection_Testing](https://www.owasp.org/index.php/Testing_for_SQL_Injection_(OTG-INPVAL-005)#Standard_SQL_Injection_Testing) and then testing carefully differing inputs. Checking database rows now and then between input checkings is essential.
+
+There is one input form in the app. It's on form page. If there were no parameter sanitization at all and pure sql were used, then the sql used to insert the data could be easily guessed [http://www.w3schools.com/sql/sql_insert.asp](http://www.w3schools.com/sql/sql_insert.asp).
+
+The flaw can be identified by inserting string `', ''); DELETE FROM signup WHERE 1=1; INSERT INTO signup (name, address) VALUES ('muahaha` for name in the form and then going (after app crash) to localhost:8080/signups (ted, president)
+
+Tools like sqlmap or the zap could be used for this, but it looks like these are more powerful in situations where something is queried from the database, not inserted. In the zap buzzing parameters with sql injection DBs is one potential strategy to find vulnerabilities.
+
+## How the flaw can be fixed?
+Just do not use pure sql (at least without parameterization) if it isn't really needed for some reason. E.g. in Spring where hibernate + jpa is in use it's rather difficult to do sql injections. Parameterization and sanitization is done automagically.

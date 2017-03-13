@@ -4,6 +4,8 @@ Exercise related to course on [https://cybersecuritybase.github.io](https://cybe
 
 Credantials for login forms: ted, president
 
+To run the project one has to run command `mvn spring-boot:run` in the root after installing Maven and JDK8.
+
 # A10-UnvaliAdated Redirects and Forwards
 
 ## How the flaw can be identified?
